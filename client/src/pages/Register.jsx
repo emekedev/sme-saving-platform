@@ -2,6 +2,7 @@ import { useState } from "react";
 import authService from "../services/authService";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     businessName: "",
@@ -20,7 +21,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+     setLoading(true);
     try {
       const response =
         await authService.register(formData);
@@ -31,6 +32,8 @@ const Register = () => {
     } catch (error) {
       console.error(error);
       alert("Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,11 +92,12 @@ const Register = () => {
         </select>
 
         <button
-          type="submit"
-          className="border p-2"
-        >
-          Register
-        </button>
+  type="submit"
+  className="border p-2 disabled:opacity-50"
+  disabled={loading}
+>
+  {loading ? "Creating account..." : "Register"}
+</button>
       </form>
     </div>
   );

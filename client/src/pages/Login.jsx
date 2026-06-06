@@ -9,6 +9,8 @@ const Login = () => {
 
   const { login } = useContext(AuthContext);
 
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const response =
         await authService.login(formData);
@@ -39,6 +41,8 @@ const Login = () => {
       console.error(error);
 
       alert("Login failed");
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -67,11 +71,12 @@ const Login = () => {
         />
 
         <button
-          className="border p-2"
-          type="submit"
-        >
-          Login
-        </button>
+  type="submit"
+  className="border p-2 disabled:opacity-50"
+  disabled={loading}
+>
+  {loading ? "Logging in..." : "Login"}
+</button>
       </form>
     </div>
   );
