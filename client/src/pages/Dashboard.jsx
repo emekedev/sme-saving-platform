@@ -1,6 +1,7 @@
 import {useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import walletService from "../services/walletService"
 
 const Dashboard = () => {
   const [wallet, setWallet] = useState(null);
