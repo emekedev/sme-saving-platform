@@ -1,3 +1,4 @@
+import Wallet from "../models/Wallet.js";
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
@@ -64,6 +65,10 @@ if (!validator.isEmail(email)) {
       email,
       password: hashedPassword,
       role,
+    });
+
+    await Wallet.create({
+      user: user._id,
     });
 
     // RESPONSE
