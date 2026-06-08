@@ -8,6 +8,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [wallet, setWallet] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const navigate = useNavigate();
+  const { user, logout } =
+    useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,11 +38,6 @@ const Dashboard = () => {
     </div>
   );
   }
-
-  const navigate = useNavigate();
-
-  const { user, logout } =
-    useContext(AuthContext);
 
   const handleLogout = () => {
     logout();
