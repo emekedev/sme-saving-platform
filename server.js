@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import {notFound,errorHandler,} from "./middleware/errorMiddleware.js";
 import walletRoutes from "./routes/walletRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
+import voucherRoutes from "./routes/voucherRoutes.js";
 dotenv.config();
 
 connectDB();
@@ -20,6 +21,10 @@ app.use("/api/auth", authRoutes);
 app.use(
   "/api/wallet",
   walletRoutes
+);
+app.use(
+  "/api/vouchers",
+  voucherRoutes
 );
 app.use("/api/transactions", transactionRoutes);
 
