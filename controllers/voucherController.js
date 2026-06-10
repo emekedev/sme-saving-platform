@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import Voucher from "../models/Voucher.js";
 import generateVoucherCode from "../utils/generateVoucherCode.js";
 import Wallet from "../models/Wallet.js";
+import Transaction from "../models/Transaction.js";
 
 // @desc Create voucher
 // @route POST /api/vouchers/create
@@ -72,11 +73,12 @@ const redeemVoucher = asyncHandler(async (req, res) => {
 
   // 6. Create transaction record
   await Transaction.create({
-    user: req.user._id,
-    type: "credit",
-    amount: voucher.amount,
-    description: `Voucher redemption: ${code}`,
-  });
+  wallet: wallet._id,
+  type: "credit",
+  amount: voucher.amount,
+  description: `Voucher redemption: ${code}`,
+  balanceAfter: wallet.balance,
+});
 
   res.json({
     message: "Voucher redeemed successfully",
@@ -87,3 +89,5 @@ const redeemVoucher = asyncHandler(async (req, res) => {
 export { createVoucher, redeemVoucher };
 
 // SVP-EUMQPW4J
+// "code": "SVP-HFAMB8JW"
+// SVP-NNO5TIOP
